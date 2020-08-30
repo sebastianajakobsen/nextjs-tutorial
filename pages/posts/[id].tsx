@@ -1,11 +1,10 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {GetServerSideProps} from "next";
 import {useRouter} from "next/router";
-
+import axios from 'axios';
 
 interface Props {
     post:Post,
-    comments:Comment[]
 }
 
 interface Comment {
@@ -23,9 +22,19 @@ interface Post {
     body:string
 }
 
-const Post: React.FC<Props> = ({post, comments}) => {
+const Post: React.FC<Props> = ({post}) => {
 
     const router = useRouter()
+
+    const [comments, setComments] = useState<Comment[]>([])
+
+
+    useEffect(() => {
+        axios.get(`https://jsonplaceholder.typicode.com/posts/${post.id}/comments`)
+            .then(res => {
+                setComments(res.data)
+            })
+    }, [post])
 
     return (
         <div>
@@ -55,13 +64,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const resPost = await fetch(`https://jsonplaceholder.typicode.com/posts/${context.query.id}`)
     const post = await resPost.json()
 
-    const resComments = await fetch(`https://jsonplaceholder.typicode.com/posts/${context.query.id}/comments`)
-    const comments = await resComments.json()
     // Pass data to the page via props
     return { props:
             {
-                post,
-                comments
+                post
             }
     }
 }
