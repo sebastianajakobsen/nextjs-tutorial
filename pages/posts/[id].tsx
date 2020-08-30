@@ -1,5 +1,4 @@
 import React from 'react';
-import {Post} from "../api/post";
 import {GetServerSideProps} from "next";
 import {useRouter} from "next/router";
 
@@ -17,7 +16,14 @@ interface Comment {
     body:string,
 }
 
-const Id: React.FC<Props> = ({post, comments}) => {
+interface Post {
+    id:number,
+    userId:number,
+    title:string,
+    body:string
+}
+
+const Post: React.FC<Props> = ({post, comments}) => {
 
     const router = useRouter()
 
@@ -62,4 +68,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 
 
-export default Id
+export default Post

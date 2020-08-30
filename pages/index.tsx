@@ -1,12 +1,17 @@
 import React from 'react';
 import Link from "next/link";
-import {Post} from "./api/post";
 
 
-export interface Props {
+
+interface Props {
     posts:Array<Post>
 }
-
+interface Post {
+    id:number,
+    userId:number,
+    title:string,
+    body:string
+}
 
 const Index:React.FC<Props> = ({posts}) => {
 
