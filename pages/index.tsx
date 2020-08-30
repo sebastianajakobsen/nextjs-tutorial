@@ -14,7 +14,7 @@ const Index:React.FC<Props> = ({posts}) => {
         <div>
             {
                 posts.map(post => (
-                    <div key={post.id}>
+                    <div className="text-lg font-medium my-3"  key={post.id}>
                         <Link href="/posts/[id]" as={`/posts/${post.id}`}>
                             <a>{post.title}</a>
                         </Link>

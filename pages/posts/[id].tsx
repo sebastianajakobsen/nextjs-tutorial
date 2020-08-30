@@ -18,12 +18,12 @@ interface Comment {
 const Id: React.FC<Props> = ({post, comments}) => {
     return (
         <div>
-            {post.title}
+            <h1 className="text-lg font-medium my-3" >{post.title}</h1>
 
             {
                 comments.map(comment => (
                     <div>
-                        <div>
+                        <div className="font-medium mt-3">
                             {comment.name}
                         </div>
                         <div>
