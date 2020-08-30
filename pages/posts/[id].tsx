@@ -1,6 +1,8 @@
 import React from 'react';
 import {Post} from "../api/post";
 import {GetServerSideProps} from "next";
+import {useRouter} from "next/router";
+
 
 interface Props {
     post:Post,
@@ -16,15 +18,19 @@ interface Comment {
 }
 
 const Id: React.FC<Props> = ({post, comments}) => {
+
+    const router = useRouter()
+
     return (
         <div>
+            <button onClick={() => router.push('/')}>Back</button>
             <h1 className="text-lg font-medium my-3" >{post.title}</h1>
 
             {
-                comments.map(comment => (
-                    <div>
+                comments.map((comment, index) => (
+                    <div key={index}>
                         <div className="font-medium mt-3">
-                            {comment.name}
+                            {comment.name} by: <span className="italic">{comment.email}</span>
                         </div>
                         <div>
                             {comment.body}
